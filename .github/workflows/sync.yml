@@ -24,7 +24,7 @@ jobs:
           git config --global user.email "action@github.com"
           git remote set-url origin https://${{ github.actor }}:${{ secrets.PAT }}@github.com/${{ github.repository }}.git
           git add data/football.db
-          git diff --quiet && git diff --staged --quiet || git commit -m "Update SQLite database"
+          git commit -m "Update SQLite database" || echo "No changes to commit"
 
       - name: Sync with upstream
         run: |
