@@ -1,42 +1,57 @@
-name: Data Sync
+name: Auto Sync
 
 on:
-  schedule:
-    - cron: "0 0 * * *" # Runs at 00:00 UTC daily
+  push:
+    branches: [main]
+  # schedule:
+  #   - cron: "0 */6 * * *" # Runs every 6 hours
   workflow_dispatch: # Allows manual triggering
 
 jobs:
   sync:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: "3.x"
+          python-version: "3.9"
 
       - name: Install Chrome
         run: |
+          wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+          echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee /etc/apt/sources.list.d/google-chrome.list
           sudo apt-get update
           sudo apt-get install -y google-chrome-stable
 
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install selenium webdriver-manager pandas requests beautifulsoup4
+          pip install selenium webdriver-manager pandas requests beautifulsoup4 flask
 
       - name: Create data directory
         run: mkdir -p data
 
-      - name: Run sync script
-        run: python football.py
+      - name: Run data update script
+        run: python -c "from football import load_player_codes, load_player; load_player_codes(); load_player()"
 
-      - name: Commit and push if changes
+      - name: Configure Git
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git remote set-url origin https://${{ github.actor }}:${{ secrets.PAT }}@github.com/${{ github.repository }}.git
           git add data/football.db
-          git commit -m "Update football database" || echo "No changes to commit"
-          git push
+          git commit -m "Update SQLite database" || echo "No changes to commit"
+
+      - name: Sync with upstream
+        run: |
+          git fetch origin
+          git pull origin main
+          git push origin main
