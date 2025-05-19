@@ -1,5 +1,6 @@
 
 
+from functools import cache
 import requests
 from bs4 import BeautifulSoup
 import pandas as pd
@@ -13,11 +14,17 @@ from webdriver_manager.chrome import ChromeDriverManager
 import sqlite3
 from datetime import datetime
 
+db_link="./data/football.db"
+
 def load_player_codes():
 
     # Create/connect to SQLite database
-    conn = sqlite3.connect('football.db')
+    conn = sqlite3.connect(db_link)
     cursor = conn.cursor()
+
+    # Drop the existing table first to ensure clean schema
+    cursor.execute('DROP TABLE IF EXISTS players')
+    cursor.execute('DROP TABLE IF EXISTS player_codes')
 
     # Create player_codes table if it doesn't exist
     cursor.execute('''
@@ -34,72 +41,86 @@ def load_player_codes():
     players_codes = []
 
     try:
-        # Setup Chrome options
+        # Setup Chrome options with additional stability settings
         chrome_options = Options()
-        # chrome_options.add_argument('--headless')  # Run in headless mode if needed
-
-        # Setup Chrome driver with webdriver-manager
-        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
-        driver.get(target_link)
-
-        # Wait for the element to be present
-        section_content = WebDriverWait(driver, 10).until(
-            EC.presence_of_element_located((By.ID, "div_4717887657"))
+        chrome_options.add_argument('--no-sandbox')
+        chrome_options.add_argument('--disable-dev-shm-usage')
+        chrome_options.add_argument('--disable-gpu')
+        chrome_options.add_argument('--disable-features=VizDisplayCompositor')
+        chrome_options.add_argument('--disable-extensions')
+        chrome_options.add_argument('--headless')  # Run in headless mode
+        
+        # Use ChromeDriver without specifying version
+        driver = webdriver.Chrome(
+            service=Service(ChromeDriverManager().install()),
+            options=chrome_options
         )
+        
+        # Set page load timeout
+        driver.set_page_load_timeout(30)
+        
+        # Navigate to the page with retry mechanism
+        max_retries = 3
+        for attempt in range(max_retries):
+            try:
+                driver.get(target_link)
+                break
+            except Exception as e:
+                if attempt == max_retries - 1:
+                    raise e
+                time.sleep(2)
 
-        # Now you can work with the content
-        player_links = section_content.find_elements(By.TAG_NAME, "a")
-
-        # Process the links
-        for link in player_links:
-            player_code = {
-                'letter': link.text.strip(),
-                'url': link.get_attribute('href')
-            }
-            players_codes.append(player_code)
+        # Wait for the page to load completely
+        WebDriverWait(driver, 20).until(
+            EC.presence_of_element_located((By.TAG_NAME, "body"))
+        )
+        
+        print(f"Page title: {driver.title}")
+        
+        # Use a more direct approach - find all links on the page
+        all_links = driver.find_elements(By.TAG_NAME, "a")
+        
+        # Filter links that match the pattern for player letter codes
+        for link in all_links:
+            href = link.get_attribute('href')
+            text = link.text.strip()
+            
+            # Check if this is a player letter code link (e.g., /en/players/aa/, /en/players/ab/, etc.)
+            if href and text and '/en/players/' in href and len(text) <= 3:
+                print(f"Found letter code: {text}, URL: {href}")
+                player_code = {
+                    'letter': text,
+                    'url': href
+                }
+                players_codes.append(player_code)
+        
+        print(f"Total player codes found: {len(players_codes)}")
 
         # Convert players_codes list to DataFrame
         player_codes_df = pd.DataFrame(players_codes)
+        print(f"player_codes_df: {player_codes_df.head()}")
 
-        # Drop the existing table first to ensure clean schema
-        cursor.execute('DROP TABLE IF EXISTS players')
-        cursor.execute('DROP TABLE IF EXISTS player_codes')
-
-        # Recreate the table
-        cursor.execute('''
-        CREATE TABLE IF NOT EXISTS player_codes (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            letter TEXT NOT NULL,
-            url TEXT NOT NULL,
-            status BOOLEAN DEFAULT 0,
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-        )
-        ''')
-
-        # Save DataFrame to SQLite database
+        # Save DataFrame to SQLite database without specifying dtypes
         player_codes_df.to_sql('player_codes', conn, 
-                          if_exists='append', 
-                          index=False,
-                          dtype={
-                              'letter': 'TEXT',
-                              'url': 'TEXT'
-                          })
+                                if_exists='append', 
+                                index=False)
         print("player_codes_df saved successfully")
 
-        # # Get the saved data
-        # result = pd.read_sql_query("""
-        #     SELECT id, letter, url, created_at 
-        #     FROM player_codes 
-        #     ORDER BY id DESC 
-        #     LIMIT 5
-        # """, conn)
+        # Get the saved data
+        result = pd.read_sql_query("""
+            SELECT id, letter, url, created_at 
+            FROM player_codes 
+            ORDER BY id DESC 
+            LIMIT 5
+        """, conn)
         
-        # return {"status": "success", "data": result.to_dict('records')}
         print("load_player_codes executed successfully")
+        print(f"result: {result}")
+        return True
 
     except Exception as e:
-        # return {"status": "error", "message": str(e)}
         print(f"load_player_codes error occurred: {e}")
+        return False
 
     finally:
         if 'driver' in locals():
@@ -107,18 +128,42 @@ def load_player_codes():
         conn.close()
 
 
+def load_player_codes_status_reset():
+    """
+    Load player codes from fbref.com and save to player_codes table
+    """
+    # Create/connect to SQLite database
+    conn = sqlite3.connect(db_link)
+    cursor = conn.cursor()
+
+    try:
+        # DROP TABLE IF EXISTS players
+        cursor.execute('DROP TABLE IF EXISTS players')
+
+
+        # After processing all players for this letter
+        cursor.execute("""
+            UPDATE player_codes 
+            SET status = 0 
+        """)
+        conn.commit()
+        print(f"Updated status RESET for all letters")
+        print("load_player_codes_status_reset executed successfully")
+
+
+    except Exception as e:
+        print(f"Error updating status RESET for letter")
+        conn.rollback()
+
 def load_player():
     """
     Load player information from player_codes table URLs and save to players table
     """
     # Create/connect to SQLite database
-    conn = sqlite3.connect('football.db')
+    conn = sqlite3.connect(db_link)
     cursor = conn.cursor()
 
-    # Drop the existing table first to ensure clean schema
-    cursor.execute('DROP TABLE IF EXISTS players')
-
-    # Create players table if it doesn't exist
+    # Create players table if it doesn't exist (without dropping it)
     cursor.execute('''
     CREATE TABLE IF NOT EXISTS players (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -145,26 +190,33 @@ def load_player():
     try:
         # Setup Chrome options
         chrome_options = Options()
-        # chrome_options.add_argument('--headless')  # Run in headless mode if needed
+        chrome_options.add_argument('--headless')  # Run in headless mode
+        chrome_options.add_argument('--no-sandbox')
+        chrome_options.add_argument('--disable-dev-shm-usage')
+        chrome_options.add_argument('--disable-gpu')
 
         # Setup Chrome driver with webdriver-manager
         driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
 
-        # Get all player codes from the database
-        player_codes = pd.read_sql_query("SELECT * FROM player_codes", conn)
+        # Get 10 unprocessed player codes from the database
+        player_codes = pd.read_sql_query("""
+            SELECT * FROM player_codes 
+            WHERE status = 0 
+            ORDER BY id 
+        """, conn)
         
+        print(f"Processing {len(player_codes)} player codes")
+        
+        if len(player_codes) == 0:
+            print("No unprocessed player codes found")
+            return True
+            
         players_data = []
         
         # Process each URL from player_codes
         for _, row in player_codes.iterrows():
             try:
-                ## now testing for 100 players
-                # Visit each player's page
-                # Check the actual id column from the database
-                if int(row['id']) > 100:  # Convert to int for safe comparison
-                    print(f"Reached 100 players limit at id: {row['id']}")
-                    break
-                
+                print(f"Processing letter code: {row['letter']} (ID: {row['id']})")
                 driver.get(row['url'])
                 
                 # Wait for player content to load
@@ -175,6 +227,7 @@ def load_player():
                 # Find all player rows
                 player_rows = driver.find_elements(By.CSS_SELECTOR, ".section_content p")
                 
+                players_count = 0
                 for player_row in player_rows:
                     try:
                         player_text = player_row.text.strip()
@@ -195,9 +248,12 @@ def load_player():
                                     'url': player_url
                                 }
                                 players_data.append(player_info)
+                                players_count += 1
                     except Exception as e:
                         print(f"Error processing player row: {e}")
                         continue
+                
+                print(f"Found {players_count} players for letter code {row['letter']}")
                 
                 # After processing all players for this letter
                 cursor.execute("""
@@ -219,11 +275,85 @@ def load_player():
             print(f"Successfully saved {len(players_data)} players to database")
         
         print("load_player executed successfully")
+        return True
 
     except Exception as e:
         print(f"Error in load_player: {e}")
+        return False
 
     finally:
         if 'driver' in locals():
             driver.quit()
+        conn.close()
+
+
+def get_players(page=1, page_size=10, sort_column='id', sort_order='asc'):
+    """
+    Get player information from the players table in the database with pagination and sorting
+    
+    Args:
+        page (int): Page number (starting from 1)
+        page_size (int): Number of records per page
+        sort_column (str): Column to sort by
+        sort_order (str): Sort direction ('asc' or 'desc')
+        
+    Returns:
+        tuple: (DataFrame of players, total_records)
+    """
+    # Create/connect to SQLite database
+    conn = sqlite3.connect(db_link)
+    cursor = conn.cursor()
+
+    try:
+        # Validate and sanitize inputs to prevent SQL injection
+        valid_columns = ['id', 'name', 'years', 'position', 'additional_info', 
+                        'player_code_id', 'url', 'letter']
+        
+        if sort_column not in valid_columns:
+            sort_column = 'id'  # Default to id if invalid column
+            
+        sort_direction = 'DESC' if sort_order.lower() == 'desc' else 'ASC'
+        
+        # Calculate offset
+        offset = (page - 1) * page_size
+        
+        # Get total count first
+        cursor.execute("SELECT COUNT(*) FROM players")
+        total_records = cursor.fetchone()[0]
+        
+        # Query to get paginated players from the database
+        query = f"""
+        SELECT p.id, p.name, p.years, p.position, p.additional_info, 
+            p.player_code_id, p.url, pc.letter
+        FROM players p
+        JOIN player_codes pc ON p.player_code_id = pc.id
+        ORDER BY p.{sort_column} {sort_direction}
+        LIMIT ? OFFSET ?
+        """
+        
+        # Execute the query with parameters
+        cursor.execute(query, (page_size, offset))
+        players = cursor.fetchall()
+        
+        # Column names for the result
+        columns = ['id', 'name', 'years', 'position', 'additional_info', 
+                    'player_code_id', 'url', 'letter']
+        
+        # Convert the results to a list of dictionaries
+        players_data = []
+        for player in players:
+            player_dict = {columns[i]: player[i] for i in range(len(columns))}
+            players_data.append(player_dict)
+        
+        # Convert to DataFrame
+        players_df = pd.DataFrame(players_data)
+        
+        print(f"Retrieved {len(players_data)} players from database (page {page})")
+        return players_df, total_records
+        
+    except Exception as e:
+        print(f"Error in get_players: {e}")
+        return pd.DataFrame(), 0
+
+    finally:
         conn.close()
