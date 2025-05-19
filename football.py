@@ -13,6 +13,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 import sqlite3
 from datetime import datetime
+import time
 from log import log  # Import the log function
 
 db_link="./data/football.db"
