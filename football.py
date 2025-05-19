@@ -13,6 +13,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 import sqlite3
 from datetime import datetime
+from log import log  # Import the log function
 
 db_link="./data/football.db"
 
@@ -23,8 +24,8 @@ def load_player_codes():
     cursor = conn.cursor()
 
     # Drop the existing table first to ensure clean schema
-    cursor.execute('DROP TABLE IF EXISTS players')
-    cursor.execute('DROP TABLE IF EXISTS player_codes')
+    # cursor.execute('DROP TABLE IF EXISTS players')
+    # cursor.execute('DROP TABLE IF EXISTS player_codes')
 
     # Create player_codes table if it doesn't exist
     cursor.execute('''
@@ -85,26 +86,47 @@ def load_player_codes():
             href = link.get_attribute('href')
             text = link.text.strip()
             
-            # Check if this is a player letter code link (e.g., /en/players/aa/, /en/players/ab/, etc.)
-            if href and text and '/en/players/' in href and len(text) <= 3:
-                print(f"Found letter code: {text}, URL: {href}")
-                player_code = {
-                    'letter': text,
-                    'url': href
-                }
-                players_codes.append(player_code)
+            # Check if this is a valid player letter code link
+            if (href and text and '/en/players/' in href and 
+                len(text) == 2 and  # Exactly 2 characters
+                text[0].isalpha() and text[1].isalpha() and  # Both characters are letters
+                text[0].isupper() and text[1].islower() and  # First uppercase, second lowercase
+                href.endswith('/')):  # Ensure URL ends with /
+                
+                # Extract letter code from URL as backup
+                url_letter = href.split('/players/')[1].strip('/')
+                letter_code = text
+                
+                # Check if letter code already exists
+                cursor.execute("""
+                    SELECT id FROM player_codes 
+                    WHERE letter = ?
+                """, (letter_code,))
+                
+                existing_code = cursor.fetchone()
+                
+                if not existing_code:
+                    print(f"Found new letter code: {letter_code}, URL: {href}")
+                    player_code = {
+                        'letter': letter_code,
+                        'url': href
+                    }
+                    players_codes.append(player_code)
+                else:
+                    print(f"Letter code {letter_code} already exists, skipping")
         
-        print(f"Total player codes found: {len(players_codes)}")
+        print(f"Total new player codes found: {len(players_codes)}")
 
-        # Convert players_codes list to DataFrame
-        player_codes_df = pd.DataFrame(players_codes)
-        print(f"player_codes_df: {player_codes_df.head()}")
+        if players_codes:
+            # Convert players_codes list to DataFrame
+            player_codes_df = pd.DataFrame(players_codes)
+            print(f"player_codes_df: {player_codes_df.head()}")
 
-        # Save DataFrame to SQLite database without specifying dtypes
-        player_codes_df.to_sql('player_codes', conn, 
-                                if_exists='append', 
-                                index=False)
-        print("player_codes_df saved successfully")
+            # Save DataFrame to SQLite database without specifying dtypes
+            player_codes_df.to_sql('player_codes', conn, 
+                                    if_exists='append', 
+                                    index=False)
+            print("New player_codes_df saved successfully")
 
         # Get the saved data
         result = pd.read_sql_query("""
@@ -159,6 +181,7 @@ def load_player():
     """
     Load player information from player_codes table URLs and save to players table
     """
+    
     # Create/connect to SQLite database
     conn = sqlite3.connect(db_link)
     cursor = conn.cursor()
@@ -190,7 +213,7 @@ def load_player():
     try:
         # Setup Chrome options
         chrome_options = Options()
-        chrome_options.add_argument('--headless')  # Run in headless mode
+        chrome_options.add_argument('--headless')
         chrome_options.add_argument('--no-sandbox')
         chrome_options.add_argument('--disable-dev-shm-usage')
         chrome_options.add_argument('--disable-gpu')
@@ -198,87 +221,109 @@ def load_player():
         # Setup Chrome driver with webdriver-manager
         driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
 
-        # Get 10 unprocessed player codes from the database
+        # Get unprocessed player codes from the database
         player_codes = pd.read_sql_query("""
             SELECT * FROM player_codes 
             WHERE status = 0 
             ORDER BY id 
+            LIMIT 100
         """, conn)
         
-        print(f"Processing {len(player_codes)} player codes")
+        log(f"Processing {len(player_codes)} player codes")
         
         if len(player_codes) == 0:
-            print("No unprocessed player codes found")
+            log("No unprocessed player codes found")
             return True
             
         players_data = []
         
         # Process each URL from player_codes
         for _, row in player_codes.iterrows():
-            try:
-                print(f"Processing letter code: {row['letter']} (ID: {row['id']})")
-                driver.get(row['url'])
-                
-                # Wait for player content to load
-                WebDriverWait(driver, 10).until(
-                    EC.presence_of_element_located((By.CLASS_NAME, "section_content"))
-                )
-                
-                # Find all player rows
-                player_rows = driver.find_elements(By.CSS_SELECTOR, ".section_content p")
-                
-                players_count = 0
-                for player_row in player_rows:
-                    try:
-                        player_text = player_row.text.strip()
-                        if player_text:
-                            # Split the text into components
-                            parts = player_text.split('·')
-                            
-                            if len(parts) >= 3:
-                                # Get the URL from the player row's anchor tag
-                                player_url = player_row.find_element(By.TAG_NAME, 'a').get_attribute('href')
+            max_retries = 3
+            retry_count = 0
+            success = False
+            
+            while retry_count < max_retries and not success:
+                try:
+                    log(f"Processing letter code: {row['letter']} (ID: {row['id']}) - Attempt {retry_count + 1}")
+                    driver.get(row['url'])
+                    
+                    # Add explicit wait with longer timeout
+                    wait = WebDriverWait(driver, 30)
+                    wait.until(
+                        EC.presence_of_element_located((By.CLASS_NAME, "section_content"))
+                    )
+                    
+                    # Add small delay after page load
+                    time.sleep(2)
+                    
+                    # Find all player rows
+                    player_rows = driver.find_elements(By.CSS_SELECTOR, ".section_content p")
+                    
+                    players_count = 0
+                    for player_row in player_rows:
+                        try:
+                            player_text = player_row.text.strip()
+                            if player_text:
+                                parts = player_text.split('·')
                                 
-                                player_info = {
-                                    'name': parts[0].strip(),
-                                    'years': parts[1].strip(),
-                                    'position': parts[2].strip(),
-                                    'additional_info': ' '.join(parts[3:]).strip() if len(parts) > 3 else '',
-                                    'player_code_id': row['id'],
-                                    'url': player_url
-                                }
-                                players_data.append(player_info)
-                                players_count += 1
-                    except Exception as e:
-                        print(f"Error processing player row: {e}")
-                        continue
-                
-                print(f"Found {players_count} players for letter code {row['letter']}")
-                
-                # After processing all players for this letter
-                cursor.execute("""
-                    UPDATE player_codes 
-                    SET status = 1 
-                    WHERE id = ?
-                """, (row['id'],))
-                conn.commit()
-                print(f"Updated status for letter {row['letter']} (ID: {row['id']})")
-                
-            except Exception as e:
-                print(f"Error processing URL {row['url']}: {e}")
-                continue
+                                if len(parts) >= 3:
+                                    player_url = player_row.find_element(By.TAG_NAME, 'a').get_attribute('href')
+                                    
+                                    player_info = {
+                                        'name': parts[0].strip(),
+                                        'years': parts[1].strip(),
+                                        'position': parts[2].strip(),
+                                        'additional_info': ' '.join(parts[3:]).strip() if len(parts) > 3 else '',
+                                        'player_code_id': row['id'],
+                                        'url': player_url
+                                    }
+                                    players_data.append(player_info)
+                                    players_count += 1
+                        except Exception as e:
+                            log(f"Error processing player row: {str(e)[:100]}")  # Limit error message length
+                            continue
+                    
+                    log(f"Found {players_count} players for letter code {row['letter']}")
+                    
+                    # Update database in a single transaction
+                    if players_count > 0:
+                        cursor.execute("""
+                            UPDATE player_codes 
+                            SET status = 1 
+                            WHERE id = ?
+                        """, (row['id'],))
+                        conn.commit()
+                        log(f"Updated status for letter {row['letter']} (ID: {row['id']})")
+                    
+                    success = True
+                    
+                except sqlite3.OperationalError as e:
+                    if "database is locked" in str(e):
+                        retry_count += 1
+                        log(f"Database locked, retrying in 5 seconds... (Attempt {retry_count})")
+                        time.sleep(5)
+                    else:
+                        log(f"Database error: {str(e)[:100]}")
+                        raise e
+                except Exception as e:
+                    retry_count += 1
+                    log(f"Error processing letter {row['letter']}: {str(e)[:100]}")
+                    if retry_count == max_retries:
+                        log(f"Failed to process letter {row['letter']} after {max_retries} attempts")
+                    time.sleep(5)
         
         if players_data:
             # Convert to DataFrame and save to database
             players_df = pd.DataFrame(players_data)
             players_df.to_sql('players', conn, if_exists='append', index=False)
-            print(f"Successfully saved {len(players_data)} players to database")
+            log(f"Successfully saved {len(players_data)} players to database")
         
-        print("load_player executed successfully")
+        log("load_player executed successfully")
         return True
 
     except Exception as e:
-        print(f"Error in load_player: {e}")
+        log(f"Error in load_player: {str(e)[:100]}")
         return False
 
     finally:

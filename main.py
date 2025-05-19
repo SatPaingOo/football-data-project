@@ -23,7 +23,7 @@ def main():
     """
     try:
         # # First load player codes
-        # load_player_codes()
+        load_player_codes()
         print("Player codes loaded successfully!")
         # # Then load player codes status reset
         # load_player_codes_status_reset()
