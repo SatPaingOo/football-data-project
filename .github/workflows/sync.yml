@@ -51,12 +51,18 @@ jobs:
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
           git remote set-url origin https://${{ github.actor }}:${{ secrets.PAT }}@github.com/${{ github.repository }}.git
+
+          # Add and commit database file if changed
           git add data/football.db
+          git diff --staged --quiet || git commit -m "Update SQLite database" 
+
+          # Add and commit log files if changed
           git add log/
-          git commit -m "Update SQLite database and logs" || echo "No changes to commit"
+          git diff --staged --quiet || git commit -m "Update log files" || echo "No changes to commit"
 
       - name: Sync with upstream
         run: |
+          git config pull.rebase false  # Configure merge strategy
           git fetch origin
-          git pull origin main
+          git pull origin main --no-rebase  # Use merge strategy instead of rebase
           git push origin main
