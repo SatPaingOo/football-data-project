@@ -1,0 +1,288 @@
+[2025-05-20 05:13:52] Processing 73 player codes
+[2025-05-20 05:13:52] Processing letter code: Uw (ID: 401) - Attempt 1
+[2025-05-20 05:13:56] Found 15 players for letter code Uw
+[2025-05-20 05:13:56] Updated status for letter Uw (ID: 401)
+[2025-05-20 05:13:56] Processing letter code: Ux (ID: 402) - Attempt 1
+[2025-05-20 05:15:57] Error processing letter Ux: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 05:16:02] Processing letter code: Ux (ID: 402) - Attempt 2
+[2025-05-20 05:18:02] Error processing letter Ux: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 05:18:07] Processing letter code: Ux (ID: 402) - Attempt 3
+[2025-05-20 05:20:07] Error processing letter Ux: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 05:20:07] Failed to process letter Ux after 3 attempts
+[2025-05-20 05:20:12] Processing letter code: Uy (ID: 403) - Attempt 1
+[2025-05-20 05:22:12] Error processing letter Uy: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 05:22:17] Processing letter code: Uy (ID: 403) - Attempt 2
+[2025-05-20 05:24:17] Error processing letter Uy: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 05:24:22] Processing letter code: Uy (ID: 403) - Attempt 3
+[2025-05-20 05:26:22] Error processing letter Uy: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 05:26:22] Failed to process letter Uy after 3 attempts
+[2025-05-20 05:26:27] Processing letter code: Uz (ID: 404) - Attempt 1
+[2025-05-20 05:28:27] Error processing letter Uz: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 05:28:32] Processing letter code: Uz (ID: 404) - Attempt 2
+[2025-05-20 05:30:32] Error processing letter Uz: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 05:30:37] Processing letter code: Uz (ID: 404) - Attempt 3
+[2025-05-20 05:32:37] Error processing letter Uz: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 05:32:37] Failed to process letter Uz after 3 attempts
+[2025-05-20 05:32:42] Processing letter code: Va (ID: 405) - Attempt 1
+[2025-05-20 05:34:42] Error processing letter Va: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 05:34:47] Processing letter code: Va (ID: 405) - Attempt 2
+[2025-05-20 05:36:47] Error processing letter Va: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 05:36:52] Processing letter code: Va (ID: 405) - Attempt 3
+[2025-05-20 05:38:52] Error processing letter Va: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 05:38:52] Failed to process letter Va after 3 attempts
+[2025-05-20 05:38:57] Processing letter code: Vd (ID: 406) - Attempt 1
+[2025-05-20 05:40:57] Error processing letter Vd: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 05:41:02] Processing letter code: Vd (ID: 406) - Attempt 2
+[2025-05-20 05:43:02] Error processing letter Vd: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 05:43:07] Processing letter code: Vd (ID: 406) - Attempt 3
+[2025-05-20 05:45:07] Error processing letter Vd: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 05:45:07] Failed to process letter Vd after 3 attempts
+[2025-05-20 05:45:12] Processing letter code: Ve (ID: 407) - Attempt 1
+[2025-05-20 05:47:12] Error processing letter Ve: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 05:47:17] Processing letter code: Ve (ID: 407) - Attempt 2
+[2025-05-20 05:49:17] Error processing letter Ve: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 05:49:22] Processing letter code: Ve (ID: 407) - Attempt 3
+[2025-05-20 05:51:23] Error processing letter Ve: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 05:51:23] Failed to process letter Ve after 3 attempts
+[2025-05-20 05:51:28] Processing letter code: Vi (ID: 408) - Attempt 1
+[2025-05-20 05:53:28] Error processing letter Vi: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 05:53:33] Processing letter code: Vi (ID: 408) - Attempt 2
+[2025-05-20 05:55:33] Error processing letter Vi: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 05:55:38] Processing letter code: Vi (ID: 408) - Attempt 3
+[2025-05-20 05:57:38] Error processing letter Vi: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 05:57:38] Failed to process letter Vi after 3 attempts
+[2025-05-20 05:57:43] Processing letter code: Vj (ID: 409) - Attempt 1
+[2025-05-20 05:59:43] Error processing letter Vj: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 05:59:48] Processing letter code: Vj (ID: 409) - Attempt 2
+[2025-05-20 06:01:48] Error processing letter Vj: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 06:01:53] Processing letter code: Vj (ID: 409) - Attempt 3
+[2025-05-20 06:03:53] Error processing letter Vj: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 06:03:53] Failed to process letter Vj after 3 attempts
+[2025-05-20 06:03:58] Processing letter code: Vl (ID: 410) - Attempt 1
+[2025-05-20 06:05:58] Error processing letter Vl: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 06:06:03] Processing letter code: Vl (ID: 410) - Attempt 2
+[2025-05-20 06:08:03] Error processing letter Vl: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 06:08:08] Processing letter code: Vl (ID: 410) - Attempt 3
+[2025-05-20 06:10:08] Error processing letter Vl: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 06:10:08] Failed to process letter Vl after 3 attempts
+[2025-05-20 06:10:13] Processing letter code: Vo (ID: 411) - Attempt 1
+[2025-05-20 06:12:13] Error processing letter Vo: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 06:12:18] Processing letter code: Vo (ID: 411) - Attempt 2
+[2025-05-20 06:14:18] Error processing letter Vo: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 06:14:23] Processing letter code: Vo (ID: 411) - Attempt 3
+[2025-05-20 06:16:24] Error processing letter Vo: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 06:16:24] Failed to process letter Vo after 3 attempts
+[2025-05-20 06:16:29] Processing letter code: Vp (ID: 412) - Attempt 1
+[2025-05-20 06:18:29] Error processing letter Vp: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 06:18:34] Processing letter code: Vp (ID: 412) - Attempt 2
+[2025-05-20 06:20:34] Error processing letter Vp: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 06:20:39] Processing letter code: Vp (ID: 412) - Attempt 3
+[2025-05-20 06:22:39] Error processing letter Vp: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 06:22:39] Failed to process letter Vp after 3 attempts
+[2025-05-20 06:22:44] Processing letter code: Vr (ID: 413) - Attempt 1
+[2025-05-20 06:24:44] Error processing letter Vr: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 06:24:49] Processing letter code: Vr (ID: 413) - Attempt 2
+[2025-05-20 06:26:49] Error processing letter Vr: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 06:26:54] Processing letter code: Vr (ID: 413) - Attempt 3
+[2025-05-20 06:28:54] Error processing letter Vr: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 06:28:54] Failed to process letter Vr after 3 attempts
+[2025-05-20 06:28:59] Processing letter code: Vs (ID: 414) - Attempt 1
+[2025-05-20 06:30:59] Error processing letter Vs: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 06:31:04] Processing letter code: Vs (ID: 414) - Attempt 2
+[2025-05-20 06:33:04] Error processing letter Vs: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 06:33:09] Processing letter code: Vs (ID: 414) - Attempt 3
+[2025-05-20 06:35:09] Error processing letter Vs: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 06:35:09] Failed to process letter Vs after 3 attempts
+[2025-05-20 06:35:14] Processing letter code: Vu (ID: 415) - Attempt 1
+[2025-05-20 06:37:14] Error processing letter Vu: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 06:37:19] Processing letter code: Vu (ID: 415) - Attempt 2
+[2025-05-20 06:39:19] Error processing letter Vu: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 06:39:24] Processing letter code: Vu (ID: 415) - Attempt 3
+[2025-05-20 06:41:24] Error processing letter Vu: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 06:41:24] Failed to process letter Vu after 3 attempts
+[2025-05-20 06:41:29] Processing letter code: Vy (ID: 416) - Attempt 1
+[2025-05-20 06:43:29] Error processing letter Vy: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 06:43:34] Processing letter code: Vy (ID: 416) - Attempt 2
+[2025-05-20 06:45:35] Error processing letter Vy: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 06:45:40] Processing letter code: Vy (ID: 416) - Attempt 3
+[2025-05-20 06:47:40] Error processing letter Vy: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 06:47:40] Failed to process letter Vy after 3 attempts
+[2025-05-20 06:47:45] Processing letter code: Wa (ID: 417) - Attempt 1
+[2025-05-20 06:49:45] Error processing letter Wa: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 06:49:50] Processing letter code: Wa (ID: 417) - Attempt 2
+[2025-05-20 06:51:50] Error processing letter Wa: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 06:51:55] Processing letter code: Wa (ID: 417) - Attempt 3
+[2025-05-20 06:53:55] Error processing letter Wa: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 06:53:55] Failed to process letter Wa after 3 attempts
+[2025-05-20 06:54:00] Processing letter code: Wb (ID: 418) - Attempt 1
+[2025-05-20 06:56:00] Error processing letter Wb: HTTPConnectionPool(host='localhost', port=40143): Read timed out. (read timeout=120)
+[2025-05-20 06:56:05] Processing letter code: Wb (ID: 418) - Attempt 2
+[2025-05-20 06:57:09] Found 1 players for letter code Wb
+[2025-05-20 06:57:09] Updated status for letter Wb (ID: 418)
+[2025-05-20 06:57:09] Processing letter code: Wd (ID: 419) - Attempt 1
+[2025-05-20 06:57:14] Found 3 players for letter code Wd
+[2025-05-20 06:57:14] Updated status for letter Wd (ID: 419)
+[2025-05-20 06:57:14] Processing letter code: We (ID: 420) - Attempt 1
+[2025-05-20 06:57:37] Found 978 players for letter code We
+[2025-05-20 06:57:37] Updated status for letter We (ID: 420)
+[2025-05-20 06:57:37] Processing letter code: Wh (ID: 421) - Attempt 1
+[2025-05-20 06:57:46] Found 207 players for letter code Wh
+[2025-05-20 06:57:46] Updated status for letter Wh (ID: 421)
+[2025-05-20 06:57:46] Processing letter code: Wi (ID: 422) - Attempt 1
+[2025-05-20 06:58:13] Found 1278 players for letter code Wi
+[2025-05-20 06:58:13] Updated status for letter Wi (ID: 422)
+[2025-05-20 06:58:13] Processing letter code: Wl (ID: 423) - Attempt 1
+[2025-05-20 06:58:17] Found 6 players for letter code Wl
+[2025-05-20 06:58:17] Updated status for letter Wl (ID: 423)
+[2025-05-20 06:58:17] Processing letter code: Wn (ID: 424) - Attempt 1
+[2025-05-20 06:58:22] Found 2 players for letter code Wn
+[2025-05-20 06:58:22] Updated status for letter Wn (ID: 424)
+[2025-05-20 06:58:22] Processing letter code: Wr (ID: 425) - Attempt 1
+[2025-05-20 06:58:28] Found 132 players for letter code Wr
+[2025-05-20 06:58:28] Updated status for letter Wr (ID: 425)
+[2025-05-20 06:58:28] Processing letter code: Ws (ID: 426) - Attempt 1
+[2025-05-20 06:58:32] Found 2 players for letter code Ws
+[2025-05-20 06:58:32] Updated status for letter Ws (ID: 426)
+[2025-05-20 06:58:32] Processing letter code: Wu (ID: 427) - Attempt 1
+[2025-05-20 06:58:37] Found 72 players for letter code Wu
+[2025-05-20 06:58:37] Updated status for letter Wu (ID: 427)
+[2025-05-20 06:58:37] Processing letter code: Wy (ID: 428) - Attempt 1
+[2025-05-20 06:58:42] Found 65 players for letter code Wy
+[2025-05-20 06:58:42] Updated status for letter Wy (ID: 428)
+[2025-05-20 06:58:42] Processing letter code: Xa (ID: 429) - Attempt 1
+[2025-05-20 06:58:47] Found 62 players for letter code Xa
+[2025-05-20 06:58:47] Updated status for letter Xa (ID: 429)
+[2025-05-20 06:58:47] Processing letter code: Xe (ID: 430) - Attempt 1
+[2025-05-20 06:58:50] Found 8 players for letter code Xe
+[2025-05-20 06:58:50] Updated status for letter Xe (ID: 430)
+[2025-05-20 06:58:50] Processing letter code: Xh (ID: 431) - Attempt 1
+[2025-05-20 06:58:54] Found 14 players for letter code Xh
+[2025-05-20 06:58:54] Updated status for letter Xh (ID: 431)
+[2025-05-20 06:58:54] Processing letter code: Xi (ID: 432) - Attempt 1
+[2025-05-20 06:59:00] Found 117 players for letter code Xi
+[2025-05-20 06:59:00] Updated status for letter Xi (ID: 432)
+[2025-05-20 06:59:00] Processing letter code: Xo (ID: 433) - Attempt 1
+[2025-05-20 06:59:04] Found 13 players for letter code Xo
+[2025-05-20 06:59:05] Updated status for letter Xo (ID: 433)
+[2025-05-20 06:59:05] Processing letter code: Xu (ID: 434) - Attempt 1
+[2025-05-20 06:59:09] Found 52 players for letter code Xu
+[2025-05-20 06:59:09] Updated status for letter Xu (ID: 434)
+[2025-05-20 06:59:09] Processing letter code: Xv (ID: 435) - Attempt 1
+[2025-05-20 06:59:13] Found 1 players for letter code Xv
+[2025-05-20 06:59:13] Updated status for letter Xv (ID: 435)
+[2025-05-20 06:59:13] Processing letter code: Xy (ID: 436) - Attempt 1
+[2025-05-20 06:59:17] Found 2 players for letter code Xy
+[2025-05-20 06:59:17] Updated status for letter Xy (ID: 436)
+[2025-05-20 06:59:17] Processing letter code: Ya (ID: 437) - Attempt 1
+[2025-05-20 06:59:34] Found 763 players for letter code Ya
+[2025-05-20 06:59:34] Updated status for letter Ya (ID: 437)
+[2025-05-20 06:59:34] Processing letter code: Yb (ID: 438) - Attempt 1
+[2025-05-20 06:59:39] Found 3 players for letter code Yb
+[2025-05-20 06:59:39] Updated status for letter Yb (ID: 438)
+[2025-05-20 06:59:39] Processing letter code: Yc (ID: 439) - Attempt 1
+[2025-05-20 06:59:43] Found 1 players for letter code Yc
+[2025-05-20 06:59:43] Updated status for letter Yc (ID: 439)
+[2025-05-20 06:59:43] Processing letter code: Yd (ID: 440) - Attempt 1
+[2025-05-20 06:59:46] Found 2 players for letter code Yd
+[2025-05-20 06:59:46] Updated status for letter Yd (ID: 440)
+[2025-05-20 06:59:46] Processing letter code: Ye (ID: 441) - Attempt 1
+[2025-05-20 06:59:54] Found 224 players for letter code Ye
+[2025-05-20 06:59:54] Updated status for letter Ye (ID: 441)
+[2025-05-20 06:59:54] Processing letter code: Yf (ID: 442) - Attempt 1
+[2025-05-20 06:59:58] Found 1 players for letter code Yf
+[2025-05-20 06:59:58] Updated status for letter Yf (ID: 442)
+[2025-05-20 06:59:58] Processing letter code: Yg (ID: 443) - Attempt 1
+[2025-05-20 07:00:03] Found 2 players for letter code Yg
+[2025-05-20 07:00:03] Updated status for letter Yg (ID: 443)
+[2025-05-20 07:00:03] Processing letter code: Yh (ID: 444) - Attempt 1
+[2025-05-20 07:00:07] Found 1 players for letter code Yh
+[2025-05-20 07:00:07] Updated status for letter Yh (ID: 444)
+[2025-05-20 07:00:07] Processing letter code: Yk (ID: 445) - Attempt 1
+[2025-05-20 07:00:11] Found 1 players for letter code Yk
+[2025-05-20 07:00:11] Updated status for letter Yk (ID: 445)
+[2025-05-20 07:00:11] Processing letter code: Yl (ID: 446) - Attempt 1
+[2025-05-20 07:00:15] Found 14 players for letter code Yl
+[2025-05-20 07:00:15] Updated status for letter Yl (ID: 446)
+[2025-05-20 07:00:15] Processing letter code: Ym (ID: 447) - Attempt 1
+[2025-05-20 07:00:19] Found 1 players for letter code Ym
+[2025-05-20 07:00:19] Updated status for letter Ym (ID: 447)
+[2025-05-20 07:00:19] Processing letter code: Yn (ID: 448) - Attempt 1
+[2025-05-20 07:00:23] Found 6 players for letter code Yn
+[2025-05-20 07:00:23] Updated status for letter Yn (ID: 448)
+[2025-05-20 07:00:23] Processing letter code: Yo (ID: 449) - Attempt 1
+[2025-05-20 07:00:35] Found 472 players for letter code Yo
+[2025-05-20 07:00:35] Updated status for letter Yo (ID: 449)
+[2025-05-20 07:00:35] Processing letter code: Yp (ID: 450) - Attempt 1
+[2025-05-20 07:00:39] Found 1 players for letter code Yp
+[2025-05-20 07:00:39] Updated status for letter Yp (ID: 450)
+[2025-05-20 07:00:39] Processing letter code: Yr (ID: 451) - Attempt 1
+[2025-05-20 07:00:43] Found 8 players for letter code Yr
+[2025-05-20 07:00:43] Updated status for letter Yr (ID: 451)
+[2025-05-20 07:00:43] Processing letter code: Ys (ID: 452) - Attempt 1
+[2025-05-20 07:00:47] Found 3 players for letter code Ys
+[2025-05-20 07:00:47] Updated status for letter Ys (ID: 452)
+[2025-05-20 07:00:47] Processing letter code: Yt (ID: 453) - Attempt 1
+[2025-05-20 07:00:51] Found 6 players for letter code Yt
+[2025-05-20 07:00:51] Updated status for letter Yt (ID: 453)
+[2025-05-20 07:00:51] Processing letter code: Yu (ID: 454) - Attempt 1
+[2025-05-20 07:01:00] Found 294 players for letter code Yu
+[2025-05-20 07:01:00] Updated status for letter Yu (ID: 454)
+[2025-05-20 07:01:00] Processing letter code: Yv (ID: 455) - Attempt 1
+[2025-05-20 07:01:04] Found 6 players for letter code Yv
+[2025-05-20 07:01:04] Updated status for letter Yv (ID: 455)
+[2025-05-20 07:01:04] Processing letter code: Za (ID: 456) - Attempt 1
+[2025-05-20 07:01:27] Found 1009 players for letter code Za
+[2025-05-20 07:01:27] Updated status for letter Za (ID: 456)
+[2025-05-20 07:01:27] Processing letter code: Zb (ID: 457) - Attempt 1
+[2025-05-20 07:01:31] Found 9 players for letter code Zb
+[2025-05-20 07:01:31] Updated status for letter Zb (ID: 457)
+[2025-05-20 07:01:31] Processing letter code: Zd (ID: 458) - Attempt 1
+[2025-05-20 07:01:36] Found 24 players for letter code Zd
+[2025-05-20 07:01:36] Updated status for letter Zd (ID: 458)
+[2025-05-20 07:01:36] Processing letter code: Ze (ID: 459) - Attempt 1
+[2025-05-20 07:01:47] Found 454 players for letter code Ze
+[2025-05-20 07:01:47] Updated status for letter Ze (ID: 459)
+[2025-05-20 07:01:47] Processing letter code: Zh (ID: 460) - Attempt 1
+[2025-05-20 07:01:55] Found 197 players for letter code Zh
+[2025-05-20 07:01:55] Updated status for letter Zh (ID: 460)
+[2025-05-20 07:01:55] Processing letter code: Zi (ID: 461) - Attempt 1
+[2025-05-20 07:02:09] Found 450 players for letter code Zi
+[2025-05-20 07:02:09] Updated status for letter Zi (ID: 461)
+[2025-05-20 07:02:09] Processing letter code: Zj (ID: 462) - Attempt 1
+[2025-05-20 07:02:13] Found 3 players for letter code Zj
+[2025-05-20 07:02:13] Updated status for letter Zj (ID: 462)
+[2025-05-20 07:02:13] Processing letter code: Zl (ID: 463) - Attempt 1
+[2025-05-20 07:02:17] Found 32 players for letter code Zl
+[2025-05-20 07:02:17] Updated status for letter Zl (ID: 463)
+[2025-05-20 07:02:17] Processing letter code: Zm (ID: 464) - Attempt 1
+[2025-05-20 07:02:22] Found 9 players for letter code Zm
+[2025-05-20 07:02:22] Updated status for letter Zm (ID: 464)
+[2025-05-20 07:02:22] Processing letter code: Zn (ID: 465) - Attempt 1
+[2025-05-20 07:02:26] Found 4 players for letter code Zn
+[2025-05-20 07:02:26] Updated status for letter Zn (ID: 465)
+[2025-05-20 07:02:26] Processing letter code: Zo (ID: 466) - Attempt 1
+[2025-05-20 07:02:35] Found 259 players for letter code Zo
+[2025-05-20 07:02:35] Updated status for letter Zo (ID: 466)
+[2025-05-20 07:02:35] Processing letter code: Zp (ID: 467) - Attempt 1
+[2025-05-20 07:02:40] Found 1 players for letter code Zp
+[2025-05-20 07:02:40] Updated status for letter Zp (ID: 467)
+[2025-05-20 07:02:40] Processing letter code: Zr (ID: 468) - Attempt 1
+[2025-05-20 07:02:44] Found 10 players for letter code Zr
+[2025-05-20 07:02:44] Updated status for letter Zr (ID: 468)
+[2025-05-20 07:02:44] Processing letter code: Zs (ID: 469) - Attempt 1
+[2025-05-20 07:02:48] Found 26 players for letter code Zs
+[2025-05-20 07:02:48] Updated status for letter Zs (ID: 469)
+[2025-05-20 07:02:48] Processing letter code: Zu (ID: 470) - Attempt 1
+[2025-05-20 07:02:58] Found 317 players for letter code Zu
+[2025-05-20 07:02:58] Updated status for letter Zu (ID: 470)
+[2025-05-20 07:02:58] Processing letter code: Zv (ID: 471) - Attempt 1
+[2025-05-20 07:03:03] Found 17 players for letter code Zv
+[2025-05-20 07:03:03] Updated status for letter Zv (ID: 471)
+[2025-05-20 07:03:03] Processing letter code: Zw (ID: 472) - Attempt 1
+[2025-05-20 07:03:08] Found 38 players for letter code Zw
+[2025-05-20 07:03:08] Updated status for letter Zw (ID: 472)
+[2025-05-20 07:03:08] Processing letter code: Zy (ID: 473) - Attempt 1
+[2025-05-20 07:03:12] Found 25 players for letter code Zy
+[2025-05-20 07:03:12] Updated status for letter Zy (ID: 473)
+[2025-05-20 07:03:12] Successfully saved 7723 players to database
+[2025-05-20 07:03:12] load_player executed successfully
