@@ -7,9 +7,10 @@ on:
     # - cron: "0 * * * *" # Runs every hour at minute 0
     # - cron: "0 */3 * * *" # Runs every 3 hours
     # - cron: "0 */6 * * *" # Runs every 6 hours
-    - cron: "0 5 * * *" # Runs every morning 5am
+    # - cron: "0 5 * * *" # Runs every morning 5am
     # - cron: "0 0 * * *" # Runs every 1 day
     # - cron: "0 0 1 * *" # Runs every 1 month
+    - cron: "0 5 1 * *" # Runs at 5am on the 1st of every month
   workflow_dispatch: # Allows manual triggering
 
 jobs:
